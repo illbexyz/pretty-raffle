@@ -30,13 +30,11 @@ function Extraction(props) {
       <ReactCSSTransitionGroup
         style={style.row}
         transitionName={{
-          enter: 'animated',
+          enter: 'animatedHidden',
           leave: 'animated',
           enterActive: 'rotateIn',
-          leaveActive: 'fadeOutDownBig',
+          leaveActive: 'hide',
         }}
-        transitionEnterTimeout={1000}
-        transitionLeaveTimeout={1000}
       >
         <div key={props.winner} style={style.winner}>
           {props.winner ? props.winner : <RedeemIcon style={style.winnerIcon} />}
