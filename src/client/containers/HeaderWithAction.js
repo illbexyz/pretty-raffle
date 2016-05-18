@@ -1,12 +1,19 @@
 import { connect } from 'react-redux';
 
-import { runExtraction } from '../actions/raffle';
+import { runExtraction, toggle } from '../actions/raffle';
 import Header from '../components/Header';
+
+function mapStateToProps(state) {
+  return {
+    entriesType: state.raffle.entriesType,
+  };
+}
 
 function mapDispatchToProps(dispatch) {
   return {
     extract: () => dispatch(runExtraction()),
+    toggle: () => dispatch(toggle()),
   };
 }
 
-export default connect(null, mapDispatchToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

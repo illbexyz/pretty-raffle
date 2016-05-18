@@ -30,3 +30,11 @@ export function runExtraction() {
     dispatch(extract(entries[extracted]));
   };
 }
+
+export const TOGGLE_ENTRIES = 'TOGGLE_ENTRIES';
+
+export function toggle() {
+  return {
+    type: TOGGLE_ENTRIES,
+  };
+}

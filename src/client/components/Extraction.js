@@ -32,7 +32,7 @@ function Extraction(props) {
         transitionName={{
           enter: 'animated',
           leave: 'animated',
-          enterActive: 'rollIn',
+          enterActive: 'rotateIn',
           leaveActive: 'fadeOutDownBig',
         }}
         transitionEnterTimeout={1000}
