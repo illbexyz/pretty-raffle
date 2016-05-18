@@ -7,19 +7,16 @@ A pretty raffle.
 
 ## Usage
 
-For development run:
+Make sure you have Node.js installed on your machine.
+
+To install:
+```bash
+npm install
+```
+
+To start:
 ```bash
 npm start
-```
-
-To run the tests:
-```bash
-npm test
-```
-
-To build production code:
-```bash
-npm build
 ```
 
 ## License
