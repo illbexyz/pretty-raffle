@@ -1,9 +1,9 @@
-# raffle [![NPM version][npm-image]][npm-url] [![Dependency Status][daviddm-image]][daviddm-url]
-> Random name picker
+# pretty-raffle
+> https://pretty-raffle.firebaseapp.com/
 
 ## Description
 
-My long description
+A pretty raffle.
 
 ## Usage
 
@@ -24,9 +24,3 @@ npm build
 
 ## License
 MIT @ [Alberto Nicoletti](illbe.xyz)
-
-[npm-image]: https://badge.fury.io/js/generator-frontend-webpack.svg
-[npm-url]: https://npmjs.org/package/generator-frontend-webpack
-[daviddm-image]: https://david-dm.org/illbexyz/generator-frontend-webpack.svg?theme=shields.io
-[daviddm-url]: https://david-dm.org/illbexyz/generator-frontend-webpack
-# pretty-raffle
