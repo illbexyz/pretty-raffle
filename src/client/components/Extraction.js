@@ -19,8 +19,8 @@ const style = {
     fontSize: 30,
   },
   winnerIcon: {
-    width: 250,
-    height: 250,
+    width: 100,
+    height: 100,
   },
 };
 
@@ -35,6 +35,8 @@ function Extraction(props) {
           enterActive: 'rotateIn',
           leaveActive: 'hide',
         }}
+        transitionEnterTimeout={1000}
+        transitionLeaveTimeout={1000}
       >
         <div key={props.winner} style={style.winner}>
           {props.winner ? props.winner : <RedeemIcon style={style.winnerIcon} />}

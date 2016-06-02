@@ -1,8 +1,27 @@
-export const ADD_ENTRIES_LIST = 'ADD_ENTRIES_LIST';
+export const CHANGE_LIST = 'CHANGE_LIST';
 
-export function addEntriesList(entries) {
+function change(index, entries) {
   return {
-    type: ADD_ENTRIES_LIST,
+    type: CHANGE_LIST,
+    index,
+    entries,
+  };
+}
+
+export function changeList(index) {
+  return (dispatch, getState) => {
+    const list = getState().lists.lists[index];
+    const entries = Object.keys(list.partecipants)
+      .map(key => list.partecipants[key]);
+    dispatch(change(index, entries));
+  };
+}
+
+export const UPDATE_ENTRIES = 'UPDATE_ENTRIES';
+
+export function updateEntries(entries) {
+  return {
+    type: UPDATE_ENTRIES,
     entries,
   };
 }
@@ -26,15 +45,7 @@ export function runExtraction() {
       ...entries.slice(0, extracted),
       ...entries.slice(extracted + 1, entries.length),
     ];
-    dispatch(addEntriesList(newEntries));
+    dispatch(updateEntries(newEntries));
     dispatch(extract(entries[extracted]));
-  };
-}
-
-export const TOGGLE_ENTRIES = 'TOGGLE_ENTRIES';
-
-export function toggle() {
-  return {
-    type: TOGGLE_ENTRIES,
   };
 }

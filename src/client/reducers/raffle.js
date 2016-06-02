@@ -1,32 +1,16 @@
 import {
-  ADD_ENTRIES_LIST,
   EXTRACT,
-  TOGGLE_ENTRIES,
+  CHANGE_LIST,
+  UPDATE_ENTRIES,
 } from '../actions/raffle';
 
-import { entriesShirts, entriesTotal } from '../config/data';
-
-function toggle(currentType) {
-  if (currentType === 'total') {
-    return {
-      entries: entriesShirts,
-      entriesType: 't-shirts',
-    };
-  } else {
-    return {
-      entries: entriesTotal,
-      entriesType: 'total',
-    };
-  }
-}
-
 export default function counterReducer(state = {
-  entries: entriesTotal,
-  entriesType: 'total',
+  entries: null,
   winner: null,
+  currentIndex: null,
 }, action) {
   switch (action.type) {
-    case ADD_ENTRIES_LIST:
+    case UPDATE_ENTRIES:
       return {
         ...state,
         entries: action.entries,
@@ -36,10 +20,12 @@ export default function counterReducer(state = {
         ...state,
         winner: action.winner,
       };
-    case TOGGLE_ENTRIES:
+    case CHANGE_LIST:
       return {
         ...state,
-        ...toggle(state.entriesType),
+        currentIndex: action.index,
+        entries: action.entries,
+        winner: null,
       };
     default:
       return state;

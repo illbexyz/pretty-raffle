@@ -3,6 +3,7 @@
 var path = require('path');
 var webpack = require('webpack');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
+var SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 
 var _appSource = path.resolve(__dirname, 'src');
 var _appBuild = path.resolve(__dirname, 'dist');
@@ -19,6 +20,7 @@ module.exports = {
   },
   devServer: {
     contentBase: _appBuild,
+    historyApiFallback: true,
   },
   module: {
     loaders: [
@@ -26,6 +28,10 @@ module.exports = {
         test: /\.js?$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
+      },
+      {
+        test: /\.css$/,
+        loader: 'style!css-loader?camelCase&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'
       },
     ],
   },
@@ -42,6 +48,12 @@ module.exports = {
     }),
     // Avoid publishing files when compilation fails
     new webpack.NoErrorsPlugin(),
+    new SWPrecacheWebpackPlugin(
+      {
+        cacheId: 'pretty-raffle',
+        maximumFileSizeToCacheInBytes: 4194304,
+      }
+    ),
   ],
   stats: {
     colors: true,

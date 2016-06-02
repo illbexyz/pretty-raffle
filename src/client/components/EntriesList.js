@@ -22,9 +22,9 @@ class EntriesList extends React.Component {
   }
 
   render() {
-    return (
-      <div style={style.container}>
-        <Paper style={{ flex: 1 }}>
+    if (this.props.entries) {
+      return (
+        <div style={style.container}>
           <List>
             <ReactCSSTransitionGroup
               transitionName={{
@@ -36,14 +36,15 @@ class EntriesList extends React.Component {
               transitionEnterTimeout={1000}
               transitionLeaveTimeout={1000}
             >
-              {this.props.entries.map(entry => (
+              {this.props.entries && this.props.entries.map(entry => (
                 <ListItem style={style.item} key={entry} primaryText={entry} />
               ))}
             </ReactCSSTransitionGroup>
           </List>
-        </Paper>
-      </div>
-    );
+        </div>
+      );
+    }
+    return null;
   }
 
 }
