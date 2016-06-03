@@ -4,6 +4,9 @@ const theme = {
   palette: {
     primary1Color: blue500,
   },
+  appBar: {
+    height: 56,
+  },
 };
 
 export default theme;

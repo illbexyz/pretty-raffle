@@ -22,11 +22,13 @@ export default function listsReducer(state = {
       return {
         ...state,
         lists: action.lists,
+        isFetching: false,
       };
     case FETCH_FAILURE:
       return {
         ...state,
         error: action.error,
+        isFetching: false,
       };
     case BEGIN_CREATE:
       return {

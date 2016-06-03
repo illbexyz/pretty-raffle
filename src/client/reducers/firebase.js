@@ -6,6 +6,8 @@ import {
   ANONYMOUS_SIGNIN,
   ANONYMOUS_SIGNIN_SUCCESS,
   ANONYMOUS_SIGNIN_FAILURE,
+  RESTORE_SESSION,
+  LOGOUT,
 } from '../actions/firebase.js';
 
 export default function firebaseReducer(state = {
@@ -39,6 +41,16 @@ export default function firebaseReducer(state = {
         ...state,
         error: action.error,
         isAuthenticating: false,
+      };
+    case RESTORE_SESSION:
+      return {
+        ...state,
+        user: action.user,
+      };
+    case LOGOUT:
+      return {
+        ...state,
+        isAuthenticating: true,
       };
     default:
       return state;

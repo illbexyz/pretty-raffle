@@ -53,18 +53,13 @@ function anonymousFailure(error) {
 export function anonymousLogin() {
   return (dispatch) => {
     dispatch(anonymous());
-    firebase.auth().signInAnonymously().catch((error) => {
-      dispatch(anonymousFailure(error));
-    });
-    const unsub = firebase.auth().onAuthStateChanged((user) => {
-      unsub();
-      if (user) {
+    firebase.auth().signInAnonymously()
+      .then(user => {
         dispatch(anonymousSuccess(user));
-      } else {
-        // User is signed out.
-        // ...
-      }
-    });
+      })
+      .catch(error => {
+        dispatch(anonymousFailure(error));
+      });
   };
 }
 
@@ -98,49 +93,52 @@ export function googleLogin() {
   return (dispatch, getState) => {
     dispatch(google());
     firebase.auth().signInWithPopup(getState().firebase.googleProvider)
-    .then(result => {
-      localStorage.setItem('googleToken', result.credential.idToken);
-      const user = result.user;
-      dispatch(googleSuccess(user));
-    }).catch(error => {
-      dispatch(googleFailure(error));
-    });
-  };
-}
-
-function restoreSession(idToken) {
-  return dispatch => {
-    const credential = firebase.auth.GoogleAuthProvider.credential(idToken);
-    firebase.auth().signInWithCredential(credential)
-      .then(user => {
+      .then(result => {
+        const user = result.user;
         dispatch(googleSuccess(user));
       })
       .catch(error => {
         dispatch(googleFailure(error));
-        dispatch(anonymousLogin());
-        localStorage.removeItem('googleToken');
       });
   };
 }
 
-function checkSession(user) {
-  if (!user) {
-    const googleToken = localStorage.getItem('googleToken');
-    if (googleToken) {
-      return true;
-    }
-    return false;
-  }
-  return false;
+export const RESTORE_SESSION = 'RESTORE_SESSION';
+
+function restoreSession(user) {
+  return {
+    type: RESTORE_SESSION,
+    user,
+  };
 }
 
 export function restoreSessionOrGoAnonymous() {
-  return (dispatch, getState) => {
-    const user = getState().firebase.user;
-    if (checkSession(user)) {
-      dispatch(restoreSession(localStorage.getItem('googleToken')));
-    } else {
-      dispatch(anonymousLogin());
-    }
+  return dispatch => {
+    const unsub = firebase.auth().onAuthStateChanged((user) => {
+      unsub();
+      if (user) {
+        dispatch(restoreSession(user));
+      } else {
+        dispatch(anonymousLogin());
+      }
+    });
+  };
+}
+
+export const LOGOUT = 'LOGOUT';
+
+function logout() {
+  return {
+    type: LOGOUT,
+  };
+}
+
+export function logoutAndGoAnonymous() {
+  return dispatch => {
+    firebase.auth().signOut()
+      .then(() => {
+        dispatch(logout());
+        dispatch(anonymousLogin());
+      });
   };
 }

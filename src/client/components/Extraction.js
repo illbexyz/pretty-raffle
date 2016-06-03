@@ -31,8 +31,8 @@ function Extraction(props) {
         style={style.row}
         transitionName={{
           enter: 'animatedHidden',
-          leave: 'animated',
-          enterActive: 'rotateIn',
+          leave: 'animatedHidden',
+          enterActive: 'fadeInDown',
           leaveActive: 'hide',
         }}
         transitionEnterTimeout={1000}

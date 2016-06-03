@@ -17,7 +17,8 @@ const styles = {
   root: {
     display: 'flex',
     flexWrap: 'wrap',
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
+    alignItems: 'center',
     flex: 1,
   },
   gridList: {
@@ -29,20 +30,17 @@ const styles = {
   gridTile: {
     width: 246,
   },
-  circularProgress: {
-    alignSelf: 'center',
-  },
 };
 
 const Lists = props => {
   const placeholder = props.isFetching ?
-  <CircularProgress style={styles.circularProgress} /> : null;
+  <CircularProgress /> : <div>Add a new list!</div>;
   return (
     <div className={`${css.column} ${css.flex} ${css.pageMargin}`}>
       <NewListContainer />
       {/* <Subheader style={{ flex: 0 }}>Lists</Subheader> */}
       <div style={styles.root}>
-        {props.lists ?
+        {props.lists && props.lists.length ?
           <GridList
             cellHeight={200}
             style={styles.gridList}

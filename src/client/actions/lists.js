@@ -1,5 +1,7 @@
 import firebase from 'firebase';
 
+import { changeList } from './raffle';
+
 export const FETCH_LISTS = 'FETCH_LISTS';
 
 function fetch() {
@@ -46,6 +48,7 @@ export function fetchLists() {
         Promise.all(promises).then(values => {
           const lists = values.map(value => value.val());
           dispatch(fetchSuccess(lists));
+          if (lists.length) dispatch(changeList(0));
         });
       });
   };
