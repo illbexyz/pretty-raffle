@@ -23,7 +23,7 @@ const UserBadge = props => {
       callback = props.googleLogin;
       text = 'Login';
     } else {
-      callback = props.logout;
+      callback = () => {};
       text = props.user.displayName;
     }
   }

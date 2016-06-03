@@ -11,10 +11,12 @@ const MyToolbar = props => (
   <div className={style.toolbar}>
     <Toolbar>
       <ToolbarGroup firstChild={true}>
-        <ToolbarTitle text="Lists" style={{ marginLeft: 16 }} />
         <DropDownMenu
+          autoWidth={false}
+          style={{ width: 150, overflow: 'hidden' }}
           value={props.currentIndex}
           onChange={(event, index, value) => props.handleListChange(value)}
+          disabled={!props.lists || !props.lists.length > 0}
         >
           {
             props.lists ?
@@ -29,9 +31,10 @@ const MyToolbar = props => (
       <ToolbarGroup>
         <RaisedButton
           style={{ marginRight: -12 }}
-          label="Extract" primary={true}
+          label="Extract"
+          primary
           onTouchTap={props.extract}
-          disabled={props.entries && !props.entries.length > 0}
+          disabled={!props.entries || !props.entries.length > 0}
         />
       </ToolbarGroup>
     </Toolbar>

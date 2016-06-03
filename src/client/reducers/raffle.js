@@ -2,6 +2,7 @@ import {
   EXTRACT,
   CHANGE_LIST,
   UPDATE_ENTRIES,
+  CLEAR,
 } from '../actions/raffle';
 
 export default function counterReducer(state = {
@@ -26,6 +27,13 @@ export default function counterReducer(state = {
         currentIndex: action.index,
         entries: action.entries,
         winner: null,
+      };
+    case CLEAR:
+      return {
+        ...state,
+        entries: null,
+        winner: null,
+        currentIndex: null,
       };
     default:
       return state;

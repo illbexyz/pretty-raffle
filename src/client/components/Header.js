@@ -8,6 +8,10 @@ import MenuItem from 'material-ui/MenuItem';
 import style from './style.css';
 
 function Header(props) {
+  const logItem = props.user && props.user.isAnonymous ?
+    <MenuItem primaryText="Login" onTouchTap={props.googleLogin} />
+    :
+    <MenuItem primaryText="Logout" onTouchTap={props.logout} />;
   return (
     <div>
       <AppBar
@@ -21,8 +25,12 @@ function Header(props) {
             targetOrigin={{ horizontal: 'right', vertical: 'top' }}
             anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
           >
-            <MenuItem primaryText="About" />
-            <MenuItem primaryText="Sign out" />
+            <MenuItem
+              primaryText="About"
+              linkButton
+              containerElement={<a href="https://github.com/illbexyz/pretty-raffle"></a>}
+            />
+            {logItem}
           </IconMenu>
         }
         showMenuIconButton={props.windowWidth <= 1000}
@@ -32,6 +40,8 @@ function Header(props) {
 }
 
 Header.propTypes = {
+  user: PropTypes.object,
+  logout: PropTypes.func.isRequired,
   openDrawer: PropTypes.func.isRequired,
   windowWidth: PropTypes.number.isRequired,
   googleLogin: PropTypes.func.isRequired,

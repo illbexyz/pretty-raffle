@@ -49,3 +49,11 @@ export function runExtraction() {
     dispatch(extract(entries[extracted]));
   };
 }
+
+export const CLEAR = 'CLEAR';
+
+export function clear() {
+  return {
+    type: CLEAR,
+  };
+}

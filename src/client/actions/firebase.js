@@ -1,6 +1,8 @@
 import firebase from 'firebase';
 import { API_KEY, AUTH_DOMAIN, DATABASE_URL } from '../config/firebase.js';
 
+import { clear } from './raffle';
+
 export const INIT_FIREBASE = 'INIT_FIREBASE';
 
 function initialize() {
@@ -139,6 +141,7 @@ export function logoutAndGoAnonymous() {
       .then(() => {
         dispatch(logout());
         dispatch(anonymousLogin());
+        dispatch(clear());
       });
   };
 }

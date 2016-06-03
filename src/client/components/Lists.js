@@ -8,6 +8,7 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 import IconButton from 'material-ui/IconButton';
 import StarBorder from 'material-ui/svg-icons/toggle/star-border';
 import CircularProgress from 'material-ui/CircularProgress';
+import Paper from 'material-ui/Paper';
 
 import NewListContainer from '../containers/NewListContainer';
 
@@ -17,18 +18,22 @@ const styles = {
   root: {
     display: 'flex',
     flexWrap: 'wrap',
-    justifyContent: 'center',
-    alignItems: 'center',
     flex: 1,
   },
   gridList: {
     flex: 1,
     height: 500,
     overflowY: 'auto',
-    marginBottom: 24,
   },
   gridTile: {
     width: 246,
+  },
+  tileContent: {
+    height: 200,
+    overflow: 'hidden',
+    padding: 8,
+    backgroundColor: '#82B1FF',
+    color: '#f5f5f5',
   },
 };
 
@@ -45,18 +50,20 @@ const Lists = props => {
             cellHeight={200}
             style={styles.gridList}
             cols={Math.floor(props.windowWidth / styles.gridTile.width)}
+            padding={32}
           >
             {props.lists.map(list => (
-              <GridTile
-                key={list.title}
-                title={list.title}
-                // subtitle={<span>by <b>{tile.author}</b></span>}
-                actionIcon={<IconButton><StarBorder color="white" /></IconButton>}
-              >
-                {Object.keys(list.partecipants).map(key =>
-                  <div key={list.partecipants[key]}>{list.partecipants[key]}</div>)
-                }
-              </GridTile>
+              <Paper key={list.title}>
+                <GridTile
+                  title={list.title}
+                >
+                  <div style={styles.tileContent}>
+                    {Object.keys(list.partecipants).map(key =>
+                      <div key={list.partecipants[key]}>{list.partecipants[key]}</div>)
+                    }
+                  </div>
+                </GridTile>
+              </Paper>
             ))}
           </GridList>
           :
