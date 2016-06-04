@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import RedeemIcon from 'material-ui/svg-icons/action/redeem';
+
+import TapHintContainer from '../containers/TapHintContainer';
 
 const style = {
   container: {
@@ -18,15 +19,14 @@ const style = {
     textTransform: 'capitalize',
     fontSize: 30,
   },
-  winnerIcon: {
-    width: 100,
-    height: 100,
-  },
 };
 
 function Extraction(props) {
   return (
-    <div style={style.container}>
+    <div
+      style={style.container}
+      onTouchTap={props.canExtract ? props.extract : () => {}}
+    >
       <ReactCSSTransitionGroup
         style={style.row}
         transitionName={{
@@ -38,9 +38,13 @@ function Extraction(props) {
         transitionEnterTimeout={1000}
         transitionLeaveTimeout={1000}
       >
-        <div key={props.winner} style={style.winner}>
-          {props.winner ? props.winner : <RedeemIcon style={style.winnerIcon} />}
-        </div>
+        {props.winner ?
+          <div key={props.winner} style={style.winner}>
+            {props.winner}
+          </div>
+          :
+          <TapHintContainer />
+        }
       </ReactCSSTransitionGroup>
     </div>
   );
@@ -48,6 +52,8 @@ function Extraction(props) {
 
 Extraction.propTypes = {
   winner: PropTypes.string,
+  extract: PropTypes.func.isRequired,
+  canExtract: PropTypes.bool.isRequired,
 };
 
 export default Extraction;

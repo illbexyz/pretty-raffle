@@ -6,11 +6,13 @@ var CopyWebpackPlugin = require('copy-webpack-plugin');
 var SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 
 var _appSource = path.resolve(__dirname, 'src');
-var _appBuild = path.resolve(__dirname, 'dist');
+var _appBuild = path.resolve(__dirname, 'public');
 
 var _srcFilename = 'app.js';
 
 var _jsSrcPath = path.join(_appSource, 'client', _srcFilename);
+
+var PROD = (process.env.NODE_ENV === 'production') || 0;
 
 module.exports = {
   entry: _jsSrcPath,
@@ -51,12 +53,12 @@ module.exports = {
     new SWPrecacheWebpackPlugin(
       {
         cacheId: 'pretty-raffle',
-        maximumFileSizeToCacheInBytes: 4194304,
+        importScripts: ['sw-toolbox.js', 'runtime-caching.js'],
       }
     ),
   ],
   stats: {
     colors: true,
   },
-  devtool: 'source-map',
+  devtool: 'eval',
 };

@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react';
 
 import { Toolbar, ToolbarGroup, ToolbarTitle } from 'material-ui/Toolbar';
-import RaisedButton from 'material-ui/RaisedButton';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 
@@ -11,9 +10,8 @@ const MyToolbar = props => (
   <div className={style.toolbar}>
     <Toolbar>
       <ToolbarGroup firstChild={true}>
+        <ToolbarTitle text={'Lists'} style={{ marginLeft: 16 }} />
         <DropDownMenu
-          autoWidth={false}
-          style={{ width: 150, overflow: 'hidden' }}
           value={props.currentIndex}
           onChange={(event, index, value) => props.handleListChange(value)}
           disabled={!props.lists || !props.lists.length > 0}
@@ -27,15 +25,6 @@ const MyToolbar = props => (
               null
           }
         </DropDownMenu>
-      </ToolbarGroup>
-      <ToolbarGroup>
-        <RaisedButton
-          style={{ marginRight: -12 }}
-          label="Extract"
-          primary
-          onTouchTap={props.extract}
-          disabled={!props.entries || !props.entries.length > 0}
-        />
       </ToolbarGroup>
     </Toolbar>
   </div>

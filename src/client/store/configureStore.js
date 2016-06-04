@@ -7,8 +7,10 @@ export default function configureStore(initialState) {
   const store = createStore(
     rootReducer,
     initialState,
-    applyMiddleware(thunkMiddleware, createLogger())
-    // applyMiddleware(thunkMiddleware),
+    process.env.NODE_ENV === 'production' ?
+      applyMiddleware(thunkMiddleware)
+      :
+      applyMiddleware(thunkMiddleware, createLogger())
   );
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers
